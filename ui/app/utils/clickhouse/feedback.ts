@@ -4,6 +4,7 @@ import { data } from "react-router";
 import { clickhouseClient, InferenceJoinKey } from "./common";
 import type { MetricConfig } from "~/utils/config/metric";
 import { getInferenceJoinKey } from "~/utils/clickhouse/curation";
+import { logger } from "../logger";
 
 export const booleanMetricFeedbackRowSchema = z.object({
   type: z.literal("boolean"),
@@ -108,7 +109,7 @@ export async function queryBooleanMetricsByTargetId(params: {
     const rows = await resultSet.json<BooleanMetricFeedbackRow>();
     return z.array(booleanMetricFeedbackRowSchema).parse(rows);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     throw data("Error querying boolean metrics", { status: 500 });
   }
 }
@@ -143,7 +144,7 @@ export async function queryBooleanMetricFeedbackBoundsByTargetId(params: {
     }
     return TableBoundsSchema.parse(rows[0]);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     throw data("Error querying boolean metric feedback bounds", {
       status: 500,
     });
@@ -259,7 +260,7 @@ export async function queryCommentFeedbackByTargetId(params: {
     const rows = await resultSet.json<CommentFeedbackRow>();
     return z.array(commentFeedbackRowSchema).parse(rows);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     throw data("Error querying comment feedback", { status: 500 });
   }
 }
@@ -294,7 +295,7 @@ export async function queryCommentFeedbackBoundsByTargetId(params: {
     }
     return TableBoundsSchema.parse(rows[0]);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     throw data("Error querying comment feedback bounds", { status: 500 });
   }
 }
@@ -405,7 +406,7 @@ export async function queryDemonstrationFeedbackByInferenceId(params: {
     const rows = await resultSet.json<DemonstrationFeedbackRow>();
     return z.array(demonstrationFeedbackRowSchema).parse(rows);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     throw data("Error querying demonstration feedback", { status: 500 });
   }
 }
@@ -440,7 +441,7 @@ export async function queryDemonstrationFeedbackBoundsByInferenceId(params: {
     }
     return TableBoundsSchema.parse(rows[0]);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     throw data("Error querying demonstration feedback bounds", {
       status: 500,
     });
@@ -565,7 +566,7 @@ export async function queryFloatMetricsByTargetId(params: {
     const rows = await resultSet.json<FloatMetricFeedbackRow>();
     return z.array(floatMetricFeedbackRowSchema).parse(rows);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     throw data("Error querying float metric feedback", { status: 500 });
   }
 }
@@ -600,7 +601,7 @@ export async function queryFloatMetricFeedbackBoundsByTargetId(params: {
     }
     return TableBoundsSchema.parse(rows[0]);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     throw data("Error querying float metric feedback bounds", {
       status: 500,
     });
@@ -923,7 +924,7 @@ export async function queryMetricsWithFeedback(params: {
 
     return metricsWithFeedbackDataSchema.parse({ metrics: validMetrics });
   } catch (error) {
-    console.error("Error fetching metrics with feedback:", error);
+    logger.error("Error fetching metrics with feedback:", error);
     throw data("Error fetching metrics with feedback", { status: 500 });
   }
 }

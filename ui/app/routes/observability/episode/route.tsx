@@ -20,6 +20,7 @@ import {
 import { Tooltip } from "~/components/ui/tooltip";
 import FeedbackTable from "~/components/feedback/FeedbackTable";
 import PageButtons from "~/components/utils/PageButtons";
+import { logger } from "~/utils/logger";
 
 export async function loader({ request, params }: Route.LoaderArgs) {
   const { episode_id } = params;
@@ -200,7 +201,7 @@ export default function InferencesPage({ loaderData }: Route.ComponentProps) {
   );
 }
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  console.error(error);
+  logger.error(error);
 
   if (isRouteErrorResponse(error)) {
     return (

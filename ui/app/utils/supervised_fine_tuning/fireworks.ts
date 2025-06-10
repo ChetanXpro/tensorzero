@@ -34,6 +34,7 @@ import type {
   JsonInferenceOutput,
 } from "../clickhouse/common";
 import type { ParsedInferenceExample } from "../clickhouse/curation";
+import { logger } from "../logger";
 export const FIREWORKS_API_URL = "https://api.fireworks.ai";
 export const FIREWORKS_API_KEY = process.env.FIREWORKS_API_KEY || logError();
 export const FIREWORKS_ACCOUNT_ID =
@@ -41,7 +42,7 @@ export const FIREWORKS_ACCOUNT_ID =
 
 // Log warning and return empty string if env vars not set
 function logError(): string {
-  console.warn("FIREWORKS_API_KEY and FIREWORKS_ACCOUNT_ID are not set");
+  logger.warn("FIREWORKS_API_KEY and FIREWORKS_ACCOUNT_ID are not set");
   return "";
 }
 

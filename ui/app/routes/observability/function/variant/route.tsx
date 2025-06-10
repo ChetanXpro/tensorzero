@@ -28,6 +28,7 @@ import { MetricSelector } from "~/components/function/variant/MetricSelector";
 import { getInferenceTableName } from "~/utils/clickhouse/common";
 import { queryMetricsWithFeedback } from "~/utils/clickhouse/feedback";
 import type { Route } from "./+types/route";
+import { logger } from "~/utils/logger";
 
 export async function loader({ request, params }: LoaderFunctionArgs) {
   const { function_name, variant_name } = params;
@@ -238,7 +239,7 @@ export default function VariantDetails() {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  console.error(error);
+  logger.error(error);
 
   if (isRouteErrorResponse(error)) {
     return (

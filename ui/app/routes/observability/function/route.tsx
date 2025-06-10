@@ -27,6 +27,7 @@ import { MetricSelector } from "~/components/function/variant/MetricSelector";
 import { useState } from "react";
 import { VariantPerformance } from "~/components/function/variant/VariantPerformance";
 import FunctionVariantTable from "./FunctionVariantTable";
+import { logger } from "~/utils/logger";
 
 export async function loader({ request, params }: Route.LoaderArgs) {
   const { function_name } = params;
@@ -231,7 +232,7 @@ export default function InferencesPage({ loaderData }: Route.ComponentProps) {
   );
 }
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  console.error(error);
+  logger.error(error);
 
   if (isRouteErrorResponse(error)) {
     return (

@@ -10,6 +10,7 @@ import type { FunctionConfig } from "~/utils/config/function";
 import type { FunctionCountInfo } from "~/utils/clickhouse/inference";
 import { formatDate } from "~/utils/date";
 import { Code } from "~/components/ui/code";
+import { logger } from "~/utils/logger";
 
 export default function FunctionsTable({
   functions,
@@ -33,7 +34,7 @@ export default function FunctionsTable({
           {countsInfo.map((countInfo) => {
             const function_config = functions[countInfo.function_name];
             if (!function_config) {
-              console.warn(
+              logger.warn(
                 `No function config found for ${countInfo.function_name}`,
               );
               return null;

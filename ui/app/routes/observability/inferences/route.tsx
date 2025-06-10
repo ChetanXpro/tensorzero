@@ -8,6 +8,7 @@ import { data, isRouteErrorResponse } from "react-router";
 import { useNavigate } from "react-router";
 import PageButtons from "~/components/utils/PageButtons";
 import InferenceSearchBar from "./InferenceSearchBar";
+import { logger } from "~/utils/logger";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
@@ -90,7 +91,7 @@ export default function InferencesPage({ loaderData }: Route.ComponentProps) {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  console.error(error);
+  logger.error(error);
 
   if (isRouteErrorResponse(error)) {
     return (

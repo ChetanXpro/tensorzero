@@ -14,6 +14,7 @@ import "./tailwind.css";
 import { getConfig } from "./utils/config/index.server";
 import { AppSidebar } from "./components/ui/sidebar/app.sidebar";
 import { SidebarProvider } from "./components/ui/sidebar";
+import { logger } from "./utils/logger";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -84,9 +85,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       error.status === 404
         ? "The requested page could not be found."
         : error.statusText || details;
+    logger.error(`Route Error: ${message} - ${details}`);
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
+    logger.error(`Application Error: ${details}`, { stack });
   }
 
   return (
